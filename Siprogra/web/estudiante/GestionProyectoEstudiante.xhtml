@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../plantillas/frontEndAdministrador.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Gestión del proyecto
+    </ui:define>
+
+    <ui:define name="CuadroDeBotonesSesion">
+        <h:form id="botonesSesionForm">
+            Bienvenido, #{usuarioController.login}
+            <p:commandLink id="cerrarSesionButton" action="#{usuarioController.cerrarSesion()}"  value="Cerrar Sesion" style="text-decoration: none;color:#FFFFFF;" />
+        </h:form>
+    </ui:define>
+    <ui:define name="title"></ui:define>
+    <ui:define name="body">
+        <p:tabView orientation="left" id="tabaviewgeneal">
+            <p:tab title="Estado del Proyecto">
+                <h1>NOMBRE DEL PROYECTO</h1>
+                A continuación puede obvservar el estado actual de su proceso de trabajo de grado<br></br><br/>
+                <h:form style="alignment-adjust: central">
+                    <p:commandButton value="Ver Flujo" actionListener="#{consultasController.mostrarTexto()}" update=":tabaviewgeneal" rendered="#{consultasController.ocultarBoton}"></p:commandButton>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(0)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                    <p:graphicImage library="img" name="flecha.png" style="width: 50px; height: 40px" rendered="#{consultasController.seMuestra}"></p:graphicImage><br/><br/>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(1)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                    <p:graphicImage library="img" name="flecha.png" style="width: 50px; height: 40px" rendered="#{consultasController.seMuestra}"></p:graphicImage><br/><br/>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(2)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                    <p:graphicImage library="img" name="flecha.png" style="width: 50px; height: 40px" rendered="#{consultasController.seMuestra}"></p:graphicImage><br/><br/>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(3)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                    <p:graphicImage library="img" name="flecha.png" style="width: 50px; height: 40px" rendered="#{consultasController.seMuestra}"></p:graphicImage><br/><br/>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(4)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                    <p:graphicImage library="img" name="flecha.png" style="width: 50px; height: 40px" rendered="#{consultasController.seMuestra}"></p:graphicImage><br/><br/>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(5)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                    <p:graphicImage library="img" name="flecha.png" style="width: 50px; height: 40px" rendered="#{consultasController.seMuestra}"></p:graphicImage><br/><br/>
+                    <p:commandButton value="#{consultasController.listarFasesNombres(6)}" style="width: 100px; height: 80px" rendered="#{consultasController.seMuestra}"></p:commandButton><br/><br/>
+                </h:form>
+            </p:tab>
+            <p:tab title="Gestión del anteproyecto">
+                <div id="Contenidotab">
+                    <h2>TÍTULO DEL PROYECTO</h2>
+                    Anteproyecto<br></br><br/>
+                    <div class="BotonesInternos">
+                        <div style="float:left; margin-left: 150px;" >
+                            <h:form id="formularioSubirAnteproyecto" enctype="multipart/form-data">
+                                <p:panelGrid  styleClass="panelgrid" id="panelSubirAnteproyecto">
+                                    <p:row>
+                                        <p:column>
+                                            <p:fileUpload fileUploadListener="#{archivosController.cargarArchivo}"   mode="advanced" dragDropSupport="false"
+                                                           label="Cargar" auto="true" fileLimit="1" allowTypes="/(\.|\/)(pdf)$/"/>                                               
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{archivosController.archivo.fileName}"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>                             
+                            </h:form>              
+                        </div>
+                        <div style="margin-left: 400px;text-align: left; margin-top: 20px;">
+                            <h:form id="formularioBotonSubir" enctype="multipart/form-data">                                
+                                <p:commandButton value="Subir" ajax="false" rendered="#{!archivosController.botonSubir}" action="#{archivosController.uploadAnteproyecto()}"/>
+                            </h:form> 
+                        </div>
+                        <div style="clear: both;"></div>  
+                        <p:commandButton id="btnVisualizarAnteproyecto" value="Visualizar"/>
+                    </div>
+                    <br></br>
+                    Revisiones del anteproyecto<br></br>
+                    <div class="BotonesInternos">
+                        <p:button value="Ver">
+                        </p:button><br></br>
+                    </div>
+                    ETAPA EN LA QUE SE ENCUENTRA: Espera de aprobación del anteproyecto.
+                </div>
+            </p:tab>
+            <p:tab title="Ejecución del proyecto" >
+                <div id="Contenidotab">
+                    <h2>TÍTULO DEL PROYECTO</h2>
+                    Documento final del trabajo de grado<br></br>
+                    <div class="BotonesInternos">
+                        <h:form>
+                            <p:fileUpload value="#{archivosController.file}" mode="simple"/>
+                            <p:commandButton value="Subir" ajax="false" actionListener="#{archivosController.upload}" disabled="#{archivosController.botonSubir}" />
+                        </h:form>
+                        <p:button  value="Visualizar">
+                        </p:button>
+                    </div>
+                    <br></br>
+                    Artefactos varios...
+                </div>
+            </p:tab>
+            <p:tab title="Formatos">
+                <div id="Contenidotab">
+                    <h1>FORMATOS PARA EL ESTUDIANTE</h1>
+                    Descargar formato de revisión del anteproyecto (Formato PDF).<br></br>
+                    <div class="BotonesInternos">
+                        <h:form>
+                            <p:commandButton value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                <p:fileDownload value="#{fileDownloadView.prepDownload}" />
+                            </p:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+            </p:tab>
+            <p:tab title="Proyectos sin estudiantes">
+                <h1>En construcción :P</h1>
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+
+</ui:composition>
